@@ -28,6 +28,7 @@ yarn-error.log*
 # local env files
 .env*.local 
 .env
+
 # checked that this would ignore my local after realising .env example was not ignored
 
 # vercel
