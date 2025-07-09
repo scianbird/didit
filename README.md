@@ -1,48 +1,17 @@
-## Upvote
+# DIDIT - Week 11 Assignment
 
-Upvote is a Reddit-esque web application that allows users to create posts, upvote and downvote posts, and comment on posts in a multi-threaded, nested list.
+(„• ᴗ •„) telling myself I can do this and I can do it with CONFIDENCE. and I DID!
 
-The project is built using Next.js with the /app router and [Tailwind CSS](https://tailwindcss.com/), and uses [Auth.js (formerly Next Auth)](https://authjs.dev/) for user authentication. The data is stored in a Postgres database, which is created and accessed with raw SQL queries using the `pg` package.
+My first step (once forked and cloned) was to deploy on Vercel, although I knew it wasn't working I hoped that the failure message could give me an idea of why. Fixing the deployment was easier than I feared it would be, although I changed the schema instructions (including if not exists in the CREATE commands).
 
-The project is a work in progress and is not yet complete.
+While creating my database in the SQL editor I could see the commented out attempt at creating a "one vote per user" policy and then corrected it using the following:
 
-## Features
+_ALTER TABLE votes ADD CONSTRAINT unique_vote_per_user_per_post UNIQUE (post_id, user_id)_
 
-- [x] View a list of posts
-- [x] View a single post
-- [x] Create a post
-- [x] Upvote and downvote posts
-- [x] Pagination of posts
-- [x] Comment on posts
-- [x] Nested comments (recursive lists)
-- [x] User authentication
+This worked and a user is only able to vote once, and has to undo their vote if they want to vote again.
 
-## Setup instructions
+My next stretch goal was to work on the error message that would show when a user who wasn't logged in tried to vote. Keeping scalability in mind, I felt that the best way to handle this would be to create a custom "log in" page (much like the login page from my Week09 assignment) that could then be reused for any action that would require a user to be logged in, especially if the team later decided you could not view any posts without being logged in etc.
 
-1. Fork the repository (check "copy the main branch only") and clone your fork to your local machine
-2. Run `npm install`
-3. Create a `.env.local` file in the root directory and add the following environment variables:
-   - `DATABASE_URL` - the URL of your Postgres database (eg. the Supabase connection string)
-   - `AUTH_SECRET` - the Next Auth secret string (this can be anything at all like a password, but keep it secret!)
-   - `AUTH_GITHUB_ID` - the GitHub OAuth client ID (create yours in [Github developer settings](https://github.com/settings/developers)
-   - `AUTH_GITHUB_SECRET` - the GitHub OAuth client secret (create this in [Github developer settings](https://github.com/settings/developers))
-4. Create the database schema by running the SQL commands in `schema.sql` in your database (eg. by running the commands in Supabase Query Editor)
-5. Run `npm run dev` to start the development server
-6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the site
+When I got this working, I then created a custom "Not Found" page, as I had one of those in previous assignments too, and I felt that it fit in the scope of customising error messages.
 
-## Potential future features
-
-- [ ] User profiles
-- [ ] Sorting posts by recent (date posted), top (most upvotes), and most controversial (most upvotes _and_ downvotes)
-- [ ] User karma scores
-- [ ] User badges / trophies (awards for achievements like number of posts, years on the site, etc.)
-- [ ] User settings (eg. number of posts per page, theme, etc.)
-- [ ] Moderation tools / reporting or flagging objectionable comments for removable by admins
-- [ ] Searching posts (possibly using simple SQL LIKE '%some search%', or [Postgres text search](https://www.crunchydata.com/blog/postgres-full-text-search-a-search-engine-in-a-database))
-- [ ] Subreddits (separate communities, that isn't just one big list of posts, that can be created by users)
-- [ ] User notifications
-- [ ] User private messaging
-- [ ] User blocking
-- [ ] User following
-- [ ] User feed (posts from users you follow)
-- [ ] User flair
+Now for: the TipTap chronicles. Although I got the rich-text component working, and fixed the issues where clicking one button on the rich-text formatting would trigger the entire form to submit.
