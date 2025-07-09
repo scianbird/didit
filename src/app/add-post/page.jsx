@@ -3,8 +3,6 @@ import { db } from "@/db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { LoginButton } from "@/components/LoginButton";
-import { LogoutButton } from "@/components/LogoutButton";
-import Tiptap from "@/components/Tiptap";
 
 export default async function Home() {
   const session = await auth();
@@ -48,13 +46,9 @@ export default async function Home() {
         <textarea
           name="content"
           className="text-black px-3 py-2 rounded"
-          placeholder="Post content"
+          placeholder="Post content..."
         />
-
-        <button
-          type="submit"
-          className="bg-stone-900	 px-4 py-2 text-xl text-white rounded hover:bg-white hover:text-stone-900 hover:duration-500"
-        >
+        <button className="bg-stone-900	 px-4 py-2 text-xl text-white rounded hover:bg-white hover:text-stone-900 hover:duration-500">
           Submit post
         </button>
       </form>
